@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - '80:80'
+    depends_on:
+      - backend
+    networks:
+      - url-shorten-network
+  backend:
+    build: ./backend
+    ports:
+      - '3000:3000'
+    depends_on:
+      - mongodb
+    networks:
+      - url-shorten-network
+  mongodb:
+    image: mongo:4.2.1-bionic
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - dbdata:/data/db
+    networks:
+      - url-shorten-network
+
+volumes:
+  dbdata:
+
+networks:
+  url-shorten-network:
+    driver: bridge
