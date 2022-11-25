@@ -64,7 +64,7 @@ exports.decodeUrl = async (req, res) => {
         return res.status(400).json({ error: 'The provided short URL does not match our records' });
     }
     
-    res.send({ url: urlModel[0].longUrl });
+    res.json({ url: urlModel[0].longUrl });
 }
 
 /**
@@ -85,7 +85,7 @@ exports.gerStatistics = async (req, res) => {
         return res.status(400).json({ error: 'The provided short URL does not match our records' });
     }
 
-    res.send({
+    res.json({
         url: urlModel[0].shortUrl,
         clicks: urlModel[0].clicks,
         createdAt: urlModel[0].createdAt,
