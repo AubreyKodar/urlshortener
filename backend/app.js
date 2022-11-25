@@ -21,8 +21,6 @@ app.use('/api', apiRoutes);
 mongoose
     .connect(dbConfig.url(), {
         useNewUrlParser: true,
-        user: dbConfig.user,
-        pass: dbConfig.pwd,
     })
     .then(() => {
         app.listen(process.env.API_PORT);
