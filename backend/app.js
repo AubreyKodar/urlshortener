@@ -11,12 +11,12 @@ dotenv.config();
 
 const app = express();
 
-app.use('/api', apiRoutes);
-app.use(webRoutes);
-
 app.use(express.json());
 app.use(cors(corsOptions))
 app.use(express.urlencoded({ extended: true }));
+
+app.use(webRoutes);
+app.use('/api', apiRoutes);
 
 mongoose
     .connect(dbConfig.url(), {
