@@ -11,7 +11,7 @@ const UrlExtractor = require('../util/url-path-extractor');
  */
 exports.getAllAvailableUrl = async (req, res) => {
     const shortenedUrls = await UrlModel.find();
-    res.status().send(200, shortenedUrls);
+    res.json(200, shortenedUrls);
 }
 
 /**
