@@ -11,8 +11,8 @@ dotenv.config();
 
 const app = express();
 
-app.use('/', webRoutes);
 app.use('/api', apiRoutes);
+app.use(webRoutes);
 
 app.use(express.json());
 app.use(cors(corsOptions))
