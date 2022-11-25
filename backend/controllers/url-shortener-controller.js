@@ -97,6 +97,22 @@ exports.gerStatistics = async (req, res) => {
  * @param req
  * @param res
  */
-exports.getUrlRedirect = (req, res) => {
-    res.status().send(200, 'redirecting');
+exports.getUrlRedirect = async (req, res) => {
+    const urlPath = req.params.urlPath;
+
+    if (UrlEncoder.URL_PATH_LENGTH !== urlPath.length) {
+        return res.status(400).json({ error: 'The provided path is invalid' });
+    }
+
+    const urlModel = (await UrlModel.find({ path: urlPath }))[0];
+
+    if (!urlModel) {
+        return res.status(400).json({ error: 'The provided short URL does not match our records' });
+    }
+
+    urlModel.clicks = Number.parseInt(urlModel.clicks) + 1;
+    urlModel.lastUsed = (new Date()).getTime();
+    urlModel.save();
+
+    res.redirect(urlModel.longUrl);
 }
