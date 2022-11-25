@@ -1,6 +1,7 @@
 const validUrl = require('valid-url');
 const UrlModel = require('../models/url-model');
 const UrlEncoder = require('../util/url-encoder');
+const UrlExtractor = require('../util/url-path-extractor');
 
 /**
  * List all available Urls
@@ -14,7 +15,7 @@ exports.getAllAvailableUrl = async (req, res) => {
 }
 
 /**
- * Generate short URL
+ * Encode long URL to short URL
  * @param req
  * @param res
  * @returns {*}
@@ -42,10 +43,35 @@ exports.encodeUrl = (req, res) => {
     res.json({ url: shortUrl.url });
 }
 
-exports.decodeUrl = (req, res) => {
-    res.status().send(200);
+/**
+ * Decode short URL to long URL
+ * @param req
+ * @param res
+ * @returns {Promise<*>}
+ */
+exports.decodeUrl = async (req, res) => {
+    const url = req.body.url;
+
+    if (!validUrl.isUri(url)) {
+        return res.status(400).json({ error: 'The provided url is invalid' });
+    }
+
+    const path = UrlExtractor.urlPathExtractor(url);
+
+    const urlModel = await UrlModel.find({ path: path });
+
+    if (Array.isArray(urlModel) && urlModel.length === 0) {
+        return res.status(400).json({ error: 'The provided short URL does not match our records' });
+    }
+    
+    res.send({ url: urlModel[0].longUrl });
 }
 
+/**
+ * Get URL statistics
+ * @param req
+ * @param res
+ */
 exports.gerStatistics = (req, res) => {
     const urlPath = req.params.urlPath;
     res.status().send(200, urlPath);
