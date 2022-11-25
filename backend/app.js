@@ -1,7 +1,6 @@
 const dotenv = require('dotenv');
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 const dbConfig = require('./config/database');
 
 dotenv.config();
@@ -10,7 +9,8 @@ const app = express();
 
 const apiRoutes = require('./routes/api');
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use('/api', apiRoutes);
 
 const SERVER_PORT = 3000;
