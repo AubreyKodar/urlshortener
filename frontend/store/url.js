@@ -25,6 +25,7 @@ export const actions = {
 
     try {
       const urls = await this.$api.shortUrl.getUrlList();
+
       commit('SET_URLS', urls.map(url => {
         return {
           ...url,
