@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const state = () => ({
   isReady: true,
   urls: [],
@@ -18,7 +20,12 @@ export const actions = {
 
     try {
       const urls = await this.$api.shortUrl.getUrlList();
-      commit('SET_URLS', urls);
+      commit('SET_URLS', urls.map(url => {
+        return {
+          ...url,
+          lastAccess: url.lastUsed ? moment(url.lastUsed).fromNow() : 'never',
+        }
+      }));
     } finally {
       commit('SET_IS_READY', true);
     }
