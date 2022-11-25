@@ -1,12 +1,12 @@
 <template>
   <v-container>
-    <h3 class="text-center mb-4">Url List</h3>
+    <h3 class="text-center mb-4">All AVAILABLE URLS</h3>
     <v-row class="mb-6">
       <v-col cols="12" md="4" offset-md="8">
         <v-text-field
           label="Search"
           v-model="search"
-          prepend-icon="mdi-magnify"
+          append-icon="mdi-magnify"
           @input="onSearch"
           clearable
         ></v-text-field>
@@ -17,7 +17,6 @@
       :items="tableItems"
       :loading="loading"
     >
-
     </v-data-table>
   </v-container>
 </template>
@@ -29,6 +28,11 @@ const MIN_CHARS_TO_SEARCH = 2;
 
 export default {
   name: "list",
+  head() {
+    return {
+      title: 'All Available URL',
+    };
+  },
   data() {
     return {
       search: null,
@@ -37,25 +41,25 @@ export default {
         {
           text: 'Long Url',
           align: 'left',
-          sortable: false,
+          sortable: true,
           value: 'longUrl',
         },
         {
           text: 'Short Url',
           align: 'left',
-          sortable: false,
+          sortable: true,
           value: 'shortUrl',
         },
         {
           text: 'Clicks',
           align: 'left',
-          sortable: false,
+          sortable: true,
           value: 'clicks',
         },
         {
           text: 'Last Used',
           align: 'left',
-          sortable: false,
+          sortable: true,
           value: 'lastAccess',
         },
       ],
