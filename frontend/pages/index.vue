@@ -1,7 +1,7 @@
 <template>
   <v-container fill-height>
     <v-row justify="center" align="center">
-      <v-col md="4" cols="12" class="text-center">
+      <v-col md="6" cols="12" class="text-center">
         <v-form ref="formGenerate" lazy-validation :disabled="loading">
           <h3 class="mb-8">URL SHORTENER</h3>
           <v-alert
@@ -26,7 +26,7 @@
             :disabled="loading"
           >
             <v-icon left>mdi-eye</v-icon>
-            View List
+            View URL List
           </v-btn>
           <v-btn
             class="primary"
@@ -35,7 +35,7 @@
             @click="onGenerateUrl"
           >
             <v-icon small>mdi-link-variant</v-icon>
-            Generate
+            Generate Short URL
           </v-btn>
         </v-form>
         <v-row class="mt-12 grey white--text short-url-container" v-if="shortUrl">
