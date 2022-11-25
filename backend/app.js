@@ -26,7 +26,7 @@ mongoose
         console.log(`listening on port ${ SERVER_PORT }`)
     })
     .catch(err => {
-        console.log('connection failed');
+        console.log('database connection failed');
         console.log(err);
     });
 
