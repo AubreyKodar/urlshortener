@@ -30,7 +30,7 @@
             Generate
           </v-btn>
         </v-form>
-        <v-row class="mt-12 grey white--text">
+        <v-row class="mt-12 grey white--text" v-if="shortUrl">
           <v-col cols="12">
             <div style="width: 80%; float: left">
               <pre>{{ shortUrl }}</pre>
