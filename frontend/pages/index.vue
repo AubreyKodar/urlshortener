@@ -2,10 +2,10 @@
   <v-container fill-height>
     <v-row justify="center" align="center">
       <v-col md="4" cols="12" class="text-center">
-        <v-form ref="fromGenerate" lazy-validation :disabled="loading">
-          <h3 class="mb-8">URL Shortener</h3>
+        <v-form ref="formGenerate" lazy-validation :disabled="loading">
+          <h3 class="mb-8">URL SHORTENER</h3>
           <v-text-field
-            label="URL"
+            label="Long URL"
             class="mb-8"
             v-model="url"
             validate-on-blur
@@ -16,6 +16,7 @@
           <v-btn
             class="secondary"
             to="/list"
+            :disabled="loading"
           >
             <v-icon left>mdi-eye</v-icon>
             View List
@@ -32,17 +33,16 @@
         </v-form>
         <v-row class="mt-12 grey white--text" v-if="shortUrl">
           <v-col cols="12">
-            <div style="width: 80%; float: left">
+            <div class="short-url-content">
               <pre>{{ shortUrl }}</pre>
             </div>
-            <div style="width: 20%; float: left">
+            <div class="short-url-btn text-right">
               <v-btn
                 small
-                class="white"
-                :rounded="false"
+                text
                 @click="copyToClipBoard"
               >
-                <v-icon>mdi-content-copy</v-icon>
+                <v-icon color="white">mdi-content-copy</v-icon>
               </v-btn>
               <v-snackbar
                 absolute
@@ -85,7 +85,7 @@ export default {
   },
   methods: {
     async onGenerateUrl() {
-      if (this.$refs.fromGenerate.validate()) {
+      if (this.$refs.formGenerate.validate()) {
         this.loading = true;
 
         try {
@@ -114,5 +114,13 @@ export default {
 </script>
 
 <style>
+.short-url-content {
+  width: 80%;
+  float: left
+}
 
+.short-url-btn {
+  width: 20%;
+  float: left
+}
 </style>
