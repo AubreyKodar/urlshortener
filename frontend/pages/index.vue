@@ -39,10 +39,11 @@
             <div class="short-url-btn text-right">
               <v-btn
                 small
+                class="pr-0 mr-0"
                 text
                 @click="copyToClipBoard"
               >
-                <v-icon color="white">mdi-content-copy</v-icon>
+                <v-icon right color="white">mdi-content-copy</v-icon>
               </v-btn>
               <v-snackbar
                 absolute
