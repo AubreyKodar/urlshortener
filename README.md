@@ -40,5 +40,5 @@ Follow the steps below to build the back end:
 - Install node dependencies ``npm install``
 
 ### 5. Using docker-compose to run the application
+- ``docker-compose build`` - build docker images
 - ``docker-compose up`` - run docker containers in foreground
-- ``docker-compose up -d`` - run docker containers in background
