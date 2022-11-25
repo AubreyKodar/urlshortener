@@ -31,7 +31,7 @@
             Generate
           </v-btn>
         </v-form>
-        <v-row class="mt-12 grey white--text" v-if="shortUrl">
+        <v-row class="mt-12 grey white--text short-url-container" v-if="shortUrl">
           <v-col cols="12">
             <div class="short-url-content">
               <pre>{{ shortUrl }}</pre>
@@ -114,6 +114,10 @@ export default {
 </script>
 
 <style>
+.short-url-container {
+  border-radius: 10px;
+}
+
 .short-url-content {
   width: 80%;
   float: left
