@@ -3,8 +3,13 @@ const URL_PATH_LENGTH = 6;
 
 /**
  * Generate Short URL
- * @returns {`${*}/${string}`}
+ * @returns {{path: string, url: string}}
  */
 module.exports.generateShortUrl = () => {
-    return  `${ process.env.API_URL }/${ nanoid(URL_PATH_LENGTH) }`;
+    const path = nanoid(URL_PATH_LENGTH);
+
+    return  {
+        path: path,
+        url: `${ process.env.API_URL }/${ path }`
+    };
 }

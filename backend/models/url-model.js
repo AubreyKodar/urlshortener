@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const shortenedSchema = new Schema({
+    path: {
+        type: String,
+        required: true,
+    },
     longUrl: {
         type: String,
         required: true,
@@ -17,11 +21,12 @@ const shortenedSchema = new Schema({
     },
     createdAt: {
         type: Date,
-        required: true,
+        default: (new Date()).getTime(),
     },
     lastUsed: {
         type: Date,
+        default: null,
     }
 });
 
-module.exports = mongoose.model('Shortened', shortenedSchema)
+module.exports = mongoose.model('urlModel', shortenedSchema)
