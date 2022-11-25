@@ -2,19 +2,21 @@ const cors = require('cors')
 const dotenv = require('dotenv');
 const express = require('express');
 const mongoose = require('mongoose');
-const dbConfig = require('./config/database');
+const apiRoutes = require('./routes/api');
+const webRoutes = require('./routes/web');
 const corsOptions = require('./config/cors');
+const dbConfig = require('./config/database');
 
 dotenv.config();
 
 const app = express();
 
-const apiRoutes = require('./routes/api');
-
-app.use(cors(corsOptions))
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use('/', webRoutes);
 app.use('/api', apiRoutes);
+
+app.use(express.json());
+app.use(cors(corsOptions))
+app.use(express.urlencoded({ extended: true }));
 
 mongoose
     .connect(dbConfig.url(), {

@@ -7,6 +7,5 @@ router.get('/list', urlShortenerController.getAllAvailableUrl);
 router.post('/encode', urlShortenerController.encodeUrl);
 router.post('/decode', urlShortenerController.decodeUrl);
 router.get('/statistic/:urlPath', urlShortenerController.gerStatistics);
-router.get('/:urlPath', urlShortenerController.getUrlRedirect);
 
 module.exports = router;
