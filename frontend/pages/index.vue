@@ -14,6 +14,13 @@
             @click:clear="onClearUrlField"
           ></v-text-field>
           <v-btn
+            class="secondary"
+            to="/list"
+          >
+            <v-icon left>mdi-eye</v-icon>
+            View List
+          </v-btn>
+          <v-btn
             class="primary"
             :loading="loading"
             left
