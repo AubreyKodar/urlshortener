@@ -73,11 +73,11 @@ exports.gerStatistics = async (req, res) => {
  * @param res
  * @returns {Promise<void>}
  */
-exports.getUrlRedirect = (req, res) => {
+exports.getUrlRedirect = async (req, res) => {
     const urlPath = req.params.urlPath;
 
     try {
-        const longUrl = updateStatisticsAndReturnLongUrl(urlPath);
+        const longUrl = await updateStatisticsAndReturnLongUrl(urlPath);
         res.redirect(longUrl);
     } catch (e) {
         return returnErrorResponse(res, e);
