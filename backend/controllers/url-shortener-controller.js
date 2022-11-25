@@ -72,9 +72,25 @@ exports.decodeUrl = async (req, res) => {
  * @param req
  * @param res
  */
-exports.gerStatistics = (req, res) => {
+exports.gerStatistics = async (req, res) => {
     const urlPath = req.params.urlPath;
-    res.status().send(200, urlPath);
+
+    if (UrlEncoder.URL_PATH_LENGTH !== urlPath.length) {
+        return res.status(400).json({ error: 'The provided path is invalid' });
+    }
+
+    const urlModel = await UrlModel.find({ path: urlPath });
+
+    if (Array.isArray(urlModel) && urlModel.length === 0) {
+        return res.status(400).json({ error: 'The provided short URL does not match our records' });
+    }
+
+    res.send({
+        url: urlModel[0].shortUrl,
+        clicks: urlModel[0].clicks,
+        createdAt: urlModel[0].createdAt,
+        lastUsed: urlModel[0].lastUsed
+    });
 }
 
 /**

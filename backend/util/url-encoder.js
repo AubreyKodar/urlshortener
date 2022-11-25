@@ -13,3 +13,5 @@ module.exports.generateShortUrl = () => {
         url: `${ process.env.API_URL }/${ path }`
     };
 }
+
+module.exports.URL_PATH_LENGTH = URL_PATH_LENGTH;
