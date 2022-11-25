@@ -1,7 +1,9 @@
+const cors = require('cors')
 const dotenv = require('dotenv');
 const express = require('express');
 const mongoose = require('mongoose');
 const dbConfig = require('./config/database');
+const corsOptions = require('./config/cors');
 
 dotenv.config();
 
@@ -9,11 +11,10 @@ const app = express();
 
 const apiRoutes = require('./routes/api');
 
+app.use(cors(corsOptions))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api', apiRoutes);
-
-const SERVER_PORT = 3000;
 
 mongoose
     .connect(dbConfig.url(), {
@@ -22,8 +23,8 @@ mongoose
         pass: dbConfig.pwd,
     })
     .then(() => {
-        app.listen(SERVER_PORT);
-        console.log(`listening on port ${ SERVER_PORT }`)
+        app.listen(process.env.API_PORT);
+        console.log(`listening on port ${ process.env.API_PORT }`)
     })
     .catch(err => {
         console.log('database connection failed');
