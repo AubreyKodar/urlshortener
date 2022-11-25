@@ -10,7 +10,7 @@ module.exports.generateShortUrl = () => {
 
     return  {
         path: path,
-        url: `${ process.env.API_URL }/${ path }`
+        url: `${ process.env.API_URL }:${ process.env.API_PORT }/${ path }`
     };
 }
 
