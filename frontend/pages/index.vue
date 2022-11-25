@@ -4,6 +4,13 @@
       <v-col md="4" cols="12" class="text-center">
         <v-form ref="formGenerate" lazy-validation :disabled="loading">
           <h3 class="mb-8">URL SHORTENER</h3>
+          <v-alert
+            type="error"
+            class="text-left"
+            v-if="error"
+          >
+            {{ error }}
+          </v-alert>
           <v-text-field
             label="Long URL"
             class="mb-8"
@@ -65,7 +72,7 @@ export default {
   name: 'IndexPage',
   head() {
     return {
-      title: 'Home',
+      title: 'Shorten URL',
     }
   },
   data () {
@@ -73,14 +80,15 @@ export default {
       url: null,
       shortUrl: null,
       loading: false,
+      error: null,
       validationRules: {
         url: [
-          v => !!v || 'Url field cannot be empty',
+          v => !!v || 'URL field cannot be empty',
         ],
       },
       snackBar: {
         show: false,
-        text: 'Url copied',
+        text: 'Url Copied',
       }
     }
   },
@@ -93,7 +101,7 @@ export default {
           const shortUrl = await this.$api.shortUrl.createShortUrl(this.url);
           this.shortUrl = shortUrl.url;
         } catch (e) {
-          console.log(e);
+          this.error = e.message;
         } finally {
           this.loading = false;
         }
